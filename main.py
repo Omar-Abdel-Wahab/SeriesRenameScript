@@ -1,7 +1,5 @@
 import os
 
-answer = input("Please enter a folder path or 'q' to exit: ")
-
 
 def rename_files(ans):
     try:
@@ -29,8 +27,8 @@ def rename_files(ans):
     print("Done, Enjoy the series!")
 
 
-while answer != 'q':
-    rename_files(answer)
+if __name__ == "__main__":
     answer = input("Please enter a folder path or 'q' to exit: ")
-
+    while answer != 'q':
+        rename_files(answer)
 
