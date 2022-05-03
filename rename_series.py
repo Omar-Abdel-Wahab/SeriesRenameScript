@@ -8,10 +8,15 @@ def rename_files(path, name, season):
     change_directory(path)
     files = get_files()
     _, extension = os.path.splitext(files[0])
+    new_files = []
 
     for episode_number, file in enumerate(files, start=1):
         # File name format = "Series_Name - Season_Number - Episode_Number.extension"
-        os.rename(file, f'{name} - S{int(season):02} - E{episode_number:02}{extension}')
+        new_file = f'{name} - S{int(season):02} - E{episode_number:02}{extension}'
+        os.rename(file, new_file)
+        new_files.append(new_file)
+
+    return new_files
 
 
 def change_directory(path):
