@@ -37,24 +37,26 @@ def get_files():
     return files
 
 
-def ask_for_input_or_exit():
-    answer = input("Enter a folder path or 'q' to exit: ")
-    if answer in END_PROGRAM:
-        return answer, None, None
-
+def ask_for_name_and_season():
     name = input("Enter the series name you would like for the files: ")
     season = input("And the season: ")
 
-    return answer, name, season
+    return name, season
+
+
+def ask_for_path_or_exit():
+    answer = input("Enter a folder path or 'q' to exit: ")
+    return answer
 
 
 if __name__ == "__main__":
 
     while True:
-        folder_path, basename, season_number = ask_for_input_or_exit()
+        folder_path = ask_for_path_or_exit()
         if folder_path in END_PROGRAM:
             break
         else:
+            basename, season_number = ask_for_name_and_season()
             print("Working on it..")
             rename_files(folder_path, basename, season_number)
             print("Done, Enjoy the series!")
