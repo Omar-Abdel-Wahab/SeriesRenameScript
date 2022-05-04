@@ -10,7 +10,7 @@ def rename_files(files, new_name):
     new_files = []
 
     for episode_number, file in enumerate(files, start=1):
-        new_file = f'{series_name} - S{int(season):02} - E{episode_number:02}{extension}'
+        new_file = f'{series_name} - S{season:02} - E{episode_number:02}{extension}'
         os.rename(file, new_file)
         new_files.append(new_file)
 
@@ -44,8 +44,19 @@ def ask_for_path_or_exit():
 def ask_for_name_and_season():
     name = input("Enter the series name you would like for the files: ")
     season = input("And the season: ")
+    season = validate_season(season)
 
     return name, season
+
+
+def validate_season(season):
+    try:
+        season = int(season)
+    except ValueError:
+        print("Invalid number. Please enter a number")
+        sys.exit()
+
+    return season
 
 
 if __name__ == "__main__":

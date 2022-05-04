@@ -7,7 +7,7 @@ class TestSeriesRename(unittest.TestCase):
 
     def test_rename_files(self):
         name = 'name'
-        season = '1'
+        season = 1
         new_name = [name, season]
         mocked_files = ['test1.mp4', 'test2.mp4', 'test3.mp4']
         renamed_files = ['name - S01 - E01.mp4', 'name - S01 - E02.mp4', 'name - S01 - E03.mp4']
