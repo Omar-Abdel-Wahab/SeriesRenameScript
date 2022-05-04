@@ -7,10 +7,11 @@ END_PROGRAM = ['q', 'Q']
 def rename_files(files, new_name):
     series_name, season = new_name[0], new_name[1]
     _, extension = os.path.splitext(files[0])
+    number_format = '02'
     new_files = []
 
-    for episode_number, file in enumerate(files, start=1):
-        new_file = f'{series_name} - S{season:02} - E{episode_number:02}{extension}'
+    for episode, file in enumerate(files, start=1):
+        new_file = f'{series_name} - S{season:{number_format}} - E{episode:{number_format}}{extension}'
         os.rename(file, new_file)
         new_files.append(new_file)
 
