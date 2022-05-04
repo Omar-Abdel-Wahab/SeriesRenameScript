@@ -4,19 +4,28 @@ import sys
 END_PROGRAM = ['q', 'Q']
 
 
-def rename_files(path, name, season):
-    change_directory(path)
-    files = get_files()
+def rename_files(files, new_name):
+    series_name, season = new_name[0], new_name[1]
     _, extension = os.path.splitext(files[0])
     new_files = []
 
     for episode_number, file in enumerate(files, start=1):
-        # File name format = "Series_Name - Season_Number - Episode_Number.extension"
-        new_file = f'{name} - S{int(season):02} - E{episode_number:02}{extension}'
+        new_file = f'{series_name} - S{int(season):02} - E{episode_number:02}{extension}'
         os.rename(file, new_file)
         new_files.append(new_file)
 
     return new_files
+
+
+def get_files(path):
+    change_directory(path)
+    files = os.listdir()
+
+    for file in files:
+        if os.path.isdir(file):
+            files.remove(file)
+
+    return files
 
 
 def change_directory(path):
@@ -27,14 +36,9 @@ def change_directory(path):
         sys.exit()
 
 
-def get_files():
-    files = os.listdir()
-
-    for file in files:
-        if os.path.isdir(file):
-            files.remove(file)
-
-    return files
+def ask_for_path_or_exit():
+    answer = input("Enter a folder path or 'q' to exit: ")
+    return answer
 
 
 def ask_for_name_and_season():
@@ -44,11 +48,6 @@ def ask_for_name_and_season():
     return name, season
 
 
-def ask_for_path_or_exit():
-    answer = input("Enter a folder path or 'q' to exit: ")
-    return answer
-
-
 if __name__ == "__main__":
 
     while True:
@@ -56,7 +55,7 @@ if __name__ == "__main__":
         if folder_path in END_PROGRAM:
             break
         else:
-            basename, season_number = ask_for_name_and_season()
-            print("Working on it..")
-            rename_files(folder_path, basename, season_number)
+            new_file_name = ask_for_name_and_season()
+            returned_files = get_files(folder_path)
+            rename_files(returned_files, new_file_name)
             print("Done, Enjoy the series!")
